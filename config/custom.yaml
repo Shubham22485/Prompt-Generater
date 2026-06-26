@@ -1,4 +1,0 @@
-optimization_level: "maximum"
-output_format: "markdown"
-max_output_chars: 15000
-verbose: true
