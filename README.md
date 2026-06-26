@@ -1,4 +1,4 @@
-# Universal Prompt Optimizer v3.0
+# Prompt Optimizer v3.0
 
 > Transform rough, vague instructions into structured, production-ready AI prompts — automatically.
 
