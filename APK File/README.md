@@ -43,19 +43,19 @@ The entire pipeline runs as **local JavaScript inside an Android WebView** — t
 
 ```
                   ┌──────────────────────────────────────────┐
-                  │           MainActivity (Java)             │
-                  │  Hosts a single WebView, loads the app    │
-                  │  from assets/www/index.html                │
-                  └───────────────────┬────────────────────────┘
+                  │           MainActivity (Java)            │
+                  │  Hosts a single WebView, loads the app   │
+                  │  from assets/www/index.html              │
+                  └───────────────────┬──────────────────────┘
                                       │
                                       ▼
                   ┌──────────────────────────────────────────┐
-                  │     index.html (HTML + CSS + JS)          │
-                  │                                            │
-                  │  Analyzer → Optimizer → Formatter          │
-                  │      → Splitter → Validator                │
-                  │                                            │
-                  │  All logic runs locally in JavaScript       │
+                  │     index.html (HTML + CSS + JS)         │
+                  │                                          │
+                  │  Analyzer → Optimizer → Formatter        │
+                  │      → Splitter → Validator              │
+                  │                                          │
+                  │  All logic runs locally in JavaScript    │
                   └──────────────────────────────────────────┘
 ```
 
@@ -66,42 +66,6 @@ The entire pipeline runs as **local JavaScript inside an Android WebView** — t
 | `AndroidManifest.xml` | App metadata, launcher activity declaration, storage permission (scoped to Android ≤ 9 only) |
 | `res/mipmap-*` | App icon at all standard Android densities (mdpi → xxxhdpi), including adaptive icon foreground/background layers |
 | `res/drawable/splash_background.xml` | Branded splash screen shown while the WebView performs its first paint |
-
----
-
-## Requirements
-
-- **Android Studio** (Hedgehog or newer recommended) — [download here](https://developer.android.com/studio)
-- A device or emulator running **Android 7.0 (API 24) or higher**
-- Internet connection on first project sync only (to download the Gradle wrapper and dependencies)
-
----
-
-## Building the APK
-
-### 1. Open the project
-1. Launch Android Studio → **Open** → select the `PromptGeneratorAI-AndroidStudio` folder
-2. Allow the initial Gradle sync to complete (downloads the wrapper and dependencies — a few minutes on first run)
-3. If prompted to trust the project, click **Trust**
-
-### 2. Build a debug APK (for testing)
-**Build → Build Bundle(s) / APK(s) → Build APK(s)**
-
-When the build finishes, click the **locate** link in the notification — do **not** search for the file manually, since the project also generates an unrelated `app-debug-androidTest.apk` (an auto-generated instrumentation test stub, not the real app). The correct file is:
-
-```
-app/build/outputs/apk/debug/app-debug.apk
-```
-
-### 3. Build a signed release APK (for distribution)
-1. **Build → Generate Signed Bundle / APK**
-2. Select **APK** → Next
-3. Create a new keystore (or use an existing one) — keep the password safe, you'll need it for future updates
-4. Select build variant **release** → Finish
-5. Output: `app/build/outputs/apk/release/app-release.apk`
-
-### 4. Install on a device
-Transfer the APK to an Android phone and tap to install (enable "Install from unknown sources" if prompted).
 
 ---
 
@@ -170,7 +134,3 @@ Same cause as above — confirm the file name does not contain `androidTest` bef
 ## License
 
 Released under the **MIT License**.
-
-## Author
-
-UniversalAI Engineer — engineer@universalprompt.dev
