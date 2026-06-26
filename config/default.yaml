@@ -1,0 +1,35 @@
+# Universal Prompt Optimizer — Default Configuration
+# This file is loaded automatically. Override values via CLI args or environment variables.
+
+# ── General ──
+verbose: false
+quiet: false
+output_dir: "./outputs"
+
+# ── Input / Output ──
+output_format: "markdown"  # markdown | json | plain
+
+# ── Optimization ──
+target_model: "auto"
+target_language: "auto"
+optimization_level: "maximum"  # basic | balanced | maximum
+preserve_intent: true
+add_sections: true
+add_examples: true
+add_edge_cases: true
+add_error_handling: true
+
+# ── Splitting ──
+max_output_chars: 12000
+auto_split: true
+split_at_sections: true
+
+# ── Logging ──
+log_level: "INFO"
+log_file: null          # null = stdout
+log_format: "json"      # json | text
+
+# ── Generation ──
+generate_tests: false
+generate_requirements: true
+generate_readme: true
