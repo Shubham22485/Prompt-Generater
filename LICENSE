@@ -1,0 +1,41 @@
+---
+
+## FILE 15: `Makefile`
+
+```makefile
+.PHONY: install test run clean lint
+
+# Install dependencies
+install:
+	pip install -r requirements.txt
+	pip install -e .
+
+# Run the optimizer
+run:
+	python src/main.py
+
+# Run tests
+test:
+	pytest tests/ -v --cov=src --cov-report=term-missing
+
+# Lint code
+lint:
+	ruff check src/ tests/
+	mypy src/
+
+# Clean build artifacts
+clean:
+	rm -rf build/ dist/ *.egg-info/ __pycache__/
+	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
+	find . -type d -name .pytest_cache -exec rm -rf {} + 2>/dev/null || true
+	rm -rf outputs/
+
+# Build distribution package
+build:
+	python -m build
+
+# Full check (lint + test)
+check: lint test
+
+# Default target
+default: install run
