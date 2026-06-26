@@ -253,9 +253,3 @@ You are an expert backend engineer with deep knowledge of:
 Released under the **MIT License**. See [LICENSE](LICENSE) for details.
 
 ---
-
-## Author
-
-UniversalAI Engineer — engineer@universalprompt.dev
-
-[Homepage](https://github.com/universalai/prompt-optimizer) · [Documentation](https://universal-prompt-optimizer.readthedocs.io) · [Issue Tracker](https://github.com/universalai/prompt-optimizer/issues)
