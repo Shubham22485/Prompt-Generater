@@ -59,55 +59,6 @@ The entire pipeline runs as **local JavaScript inside an Android WebView** — t
                   └──────────────────────────────────────────┘
 ```
 
-| Component | Responsibility |
-|---|---|
-| `MainActivity.java` | Hosts the WebView, configures JS/DOM storage, handles the system back button, and intercepts file downloads (saves to the public Downloads folder via `MediaStore` on Android 10+, legacy file API on Android 9 and below) |
-| `assets/www/index.html` | The complete self-contained app — UI plus the full analyzer/optimizer/formatter/splitter/validator pipeline in JavaScript |
-| `AndroidManifest.xml` | App metadata, launcher activity declaration, storage permission (scoped to Android ≤ 9 only) |
-| `res/mipmap-*` | App icon at all standard Android densities (mdpi → xxxhdpi), including adaptive icon foreground/background layers |
-| `res/drawable/splash_background.xml` | Branded splash screen shown while the WebView performs its first paint |
-
----
-
-## Project Structure
-
-```
-PromptGeneratorAI-AndroidStudio/
-├── app/
-│   ├── build.gradle                       # App-level config: applicationId, SDK versions, dependencies
-│   ├── proguard-rules.pro
-│   └── src/main/
-│       ├── AndroidManifest.xml            # Permissions, activity & theme declarations
-│       ├── java/com/promptgenerator/ai/
-│       │   └── MainActivity.java          # WebView host, download handling, back navigation
-│       ├── assets/www/
-│       │   └── index.html                 # Full app: UI + pipeline logic + embedded icon
-│       └── res/
-│           ├── layout/activity_main.xml   # WebView + branded loading screen
-│           ├── values/                    # Colors, strings, themes
-│           ├── drawable/splash_background.xml
-│           ├── mipmap-{m,h,x,xx,xxx}hdpi/ # App icon at every density
-│           └── mipmap-anydpi-v26/         # Adaptive icon XML (Android 8+)
-├── build.gradle                           # Top-level Gradle config
-├── settings.gradle
-└── gradle.properties
-```
-
----
-
-## Configuration
-
-| Setting | Where | Default |
-|---|---|---|
-| App name | `res/values/strings.xml` → `app_name` | `Prompt Generator AI` |
-| Application ID / package | `app/build.gradle` → `applicationId` | `com.promptgenerator.ai` |
-| Version | `app/build.gradle` → `versionCode` / `versionName` | `1` / `3.0.0` |
-| Min / Target SDK | `app/build.gradle` | `24` / `34` |
-| App icon | `res/mipmap-*/ic_launcher*.png` | Generated from the app logo |
-| App content / pipeline logic | `assets/www/index.html` | — |
-
----
-
 ## Permissions
 
 | Permission | Why it's needed |
@@ -115,19 +66,6 @@ PromptGeneratorAI-AndroidStudio/
 | `WRITE_EXTERNAL_STORAGE` (capped at API 28) | Lets the "Save File" button write to the public Downloads folder on Android 9 and below. Not required on Android 10+, where the app uses the scoped-storage-compliant `MediaStore` API instead. |
 
 No `INTERNET` permission is requested — the app makes no network calls.
-
----
-
-## Troubleshooting
-
-**App crashes immediately on open / vanishes from recents**
-Check Logcat (`View → Tool Windows → Logcat`, filter by `AndroidRuntime`) for a `FATAL EXCEPTION` block and review the `Caused by:` lines — this is the fastest way to pinpoint a resource or layout issue.
-
-**Installed app shows no icon and won't open**
-You likely installed `app-debug-androidTest.apk` instead of `app-debug.apk`. The `-androidTest` file is an auto-generated instrumentation test stub with no UI — uninstall it from Settings → Apps and install the correct file instead.
-
-**APK is unexpectedly small (a few KB)**
-Same cause as above — confirm the file name does not contain `androidTest` before installing.
 
 ---
 
